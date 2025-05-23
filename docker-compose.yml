@@ -1,0 +1,38 @@
+version: "3.9"
+services:
+  backend:
+    build: ./backend
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+
+  executor:
+    build: ./executor
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./executor:/app
+
+  db:
+    image: postgres:14
+    environment:
+      POSTGRES_USER: sbappy
+      POSTGRES_PASSWORD: sbappy123
+      POSTGRES_DB: sbappydb
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
