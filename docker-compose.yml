@@ -1,38 +1,57 @@
-version: "3.9"
+version: "3.8"
+
 services:
   backend:
-    build: ./backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile
     ports:
       - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://sbappy:sbappy123@db:5432/sbappydb
+      - EXECUTOR_URL=http://executor:5000  # URL do serviço executor
+      - SECRET_KEY=sbappytrack_secret_key_123  # Para autenticação JWT
     depends_on:
-      - db
-    volumes:
-      - ./backend:/app
+      db:
+        condition: service_healthy
+      executor:
+        condition: service_started
 
   frontend:
-    build: ./frontend
+    image: nginx:alpine
     ports:
-      - "3000:3000"
+      - "80:80"
     volumes:
-      - ./frontend:/app
+      - ./frontend/public:/usr/share/nginx/html
+    depends_on:
+      - backend
 
   executor:
-    build: ./executor
+    build:
+      context: ./executor
+      dockerfile: Dockerfile
     ports:
-      - "5000:5000"
-    volumes:
-      - ./executor:/app
+      - "5000:5000"  # Porta interna mantida como 5000
+    environment:
+      - TIMEOUT_DEFAULT=5  # Timeout padrão em segundos
+      - MAX_CODE_LENGTH=10000  # Tamanho máximo do código
 
   db:
     image: postgres:14
     environment:
-      POSTGRES_USER: sbappy
-      POSTGRES_PASSWORD: sbappy123
-      POSTGRES_DB: sbappydb
+      - POSTGRES_USER=sbappy
+      - POSTGRES_PASSWORD=sbappy123
+      - POSTGRES_DB=sbappydb
     ports:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+      - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql  # Script SQL inicial
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U sbappy -d sbappydb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
 volumes:
   postgres_data:
