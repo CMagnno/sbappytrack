@@ -7,13 +7,12 @@
 - Ambiente de execução de código Python no navegador
 - Feedback instantâneo com saída e erros
 - Dashboard do professor com:
-  - Tempo gasto por exercício
-  - Número de tentativas
+  - Erros individuais
   - Erros mais comuns por turma
 
 ## 🧰 Tecnologias
 
-- **Frontend**: React.js + TailwindCSS
+- **Frontend**: HTML + CSS + JS
 - **Backend**: FastAPI + PostgreSQL
 - **Executor de código**: Python isolado via Docker
 - **Infraestrutura**: Docker Compose
