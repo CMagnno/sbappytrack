@@ -1,0 +1,104 @@
+body {
+  font-family: "Arial", sans-serif;
+  margin: 0;
+  padding: 20px;
+  background: linear-gradient(45deg, #cacaca, #535554, #1b1d1c);
+  background-size: 400% 400%;
+  animation: gradientMove 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #3344;
+}
+
+@keyframes gradientMove {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+header {
+  background-color: #07070a;
+  color: rgb(214, 210, 210);
+  padding: 15px 0;
+  text-align: center;
+  width: 100%;
+  border-radius: 10px;
+  margin-bottom: 20px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 45px;
+}
+main {
+  width: 100%;
+  max-width: 800px;
+}
+@keyframes fadeInSlideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+section {
+  background-color: #2e2d2d;
+  padding: 25px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+#code {
+  width: calc(100% - 30px);
+  height: 200px;
+  padding: 15px;
+  border: 1px solid #0acc0a;
+  border-radius: 8px;
+}
+
+#code:focus {
+  border-color: #0cc734;
+  outline: none;
+}
+#run {
+  background-color: #075512;
+  color: rgb(232, 240, 232), 0, 0;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-size: 1.1em;
+  margin-top: 15px;
+}
+#result h3 {
+  margin-top: 0;
+  color: #999797;
+  font-size: 1.3em;
+  border-bottom: 1px solid white;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+}
+
+#output {
+  background-color: #f8f8f8;
+  padding: 15px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  font-size: 0.95em;
+  color: #222;
+  max-height: 250px;
+  overflow-y: auto;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.5);
+}
+.muda{
+    color: greenyellow;
+}
